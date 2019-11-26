@@ -50,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="scripts\*.cs" />
+    <Compile Include="scripts\buildings\*.cs" />
+    <Compile Include="scripts\hexgrid\*.cs" />
+    <Compile Include="scripts\resources\*.cs" />
+    <Compile Include="scripts\tiles\*.cs" />
+    <Compile Include="scripts\units\*.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
