@@ -3,8 +3,8 @@
 [ext_resource path="res://assets/unit.png" type="Texture" id=1]
 [ext_resource path="res://scripts/units/Unit.cs" type="Script" id=2]
 
-[node name="BaseUnit" type="Sprite"]
+[node name="Human" type="Sprite"]
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
 Speed = 100.0
-Energy = 120
+Energy = 100

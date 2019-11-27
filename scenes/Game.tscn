@@ -10,6 +10,6 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 script = ExtResource( 2 )
-_zoomStep = 1.0
+_zoomStep = 1.1
 _zoomMax = 8.0
-_zoomMin = 1.0
+_zoomMin = 0.3

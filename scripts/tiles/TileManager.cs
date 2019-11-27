@@ -1,22 +1,29 @@
-using EvolveMono.Scripts.Tiles;
 using Godot;
-using Godot.Collections;
+using System.Collections.Generic;
+using EvolveMono.Scripts.Tiles;
 
 public static class TileManager
 {
-    private static Dictionary<Vector2, Tile> _tiles = new Dictionary<Vector2, Tile>();
-    public static Dictionary<Vector2, Tile> Tiles
-    {
-        get => _tiles;
-    }
 
-    public static void PutTile(Vector2 coordinates, Tile tile)
-    {
-        _tiles.Add(coordinates, tile);
-    }
+    public static TilesDictionary Tiles = new TilesDictionary();
 
-    public static void RemoveTile(Vector2 coordinates)
+    public class TilesDictionary
     {
-        _tiles.Remove(coordinates);
+        private Dictionary<Vector2, Tile> _tiles = new Dictionary<Vector2, Tile>();
+        public Tile this[Vector2 pos]
+        {
+            get => _tiles.ContainsKey(pos) ? _tiles[pos] : null;
+            set => _tiles[pos] = value;
+        }
+        public Tile this[int x, int y]
+        {
+            get => this[new Vector2(x, y)];
+            set => this[new Vector2(x, y)] = value;
+        }
+        public Tile this[float x, float y]
+        {
+            get => this[(int)x, (int)y];
+            set => this[(int)x, (int)y] = value;
+        }
     }
 }
