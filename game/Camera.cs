@@ -1,6 +1,6 @@
 using Godot;
 
-namespace EvolveMono.Scripts
+namespace EvolveMono.Game
 {
 
     public class Camera : Camera2D

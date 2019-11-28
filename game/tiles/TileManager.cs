@@ -1,6 +1,6 @@
 using Godot;
 using System.Collections.Generic;
-using EvolveMono.Scripts.Tiles;
+using EvolveMono.Game.Tiles;
 
 public static class TileManager
 {

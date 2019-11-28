@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-namespace EvolveMono.Scripts.Units
+namespace EvolveMono.Game.Units
 {
 
     public class Unit : Sprite
@@ -84,9 +84,9 @@ namespace EvolveMono.Scripts.Units
 
     public sealed class UnitType
     {
-        public static readonly UnitType Goblin = new UnitType(0, ResourceLoader.Load("res://scenes/units/Goblin.tscn") as PackedScene);
-        public static readonly UnitType Human = new UnitType(1, ResourceLoader.Load("res://scenes/units/Human.tscn") as PackedScene);
-        public static readonly UnitType Giant = new UnitType(2, ResourceLoader.Load("res://scenes/units/Giant.tscn") as PackedScene);
+        public static readonly UnitType Goblin = new UnitType(0, ResourceLoader.Load("res://game/units/Goblin.tscn") as PackedScene);
+        public static readonly UnitType Human = new UnitType(1, ResourceLoader.Load("res://game/units/Human.tscn") as PackedScene);
+        public static readonly UnitType Giant = new UnitType(2, ResourceLoader.Load("res://game/units/Giant.tscn") as PackedScene);
 
         public int index;
         public PackedScene packedScene;

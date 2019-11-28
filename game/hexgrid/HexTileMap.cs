@@ -1,6 +1,6 @@
 using Godot;
 
-namespace EvolveMono.Scripts.Hexgrid {
+namespace EvolveMono.Game.Hexgrid {
 
     [Tool]
     public class HexTileMap : TileMap {

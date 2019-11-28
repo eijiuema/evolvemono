@@ -1,4 +1,4 @@
-namespace EvolveMono.Scripts.Buildings
+namespace EvolveMono.Game.Buildings
 {
 
     public class Building

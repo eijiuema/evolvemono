@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using EvolveMono.Scripts.Buildings;
-using EvolveMono.Scripts.Resources;
+using EvolveMono.Game.Buildings;
+using EvolveMono.Game.Resources;
 
-namespace EvolveMono.Scripts.Tiles
+namespace EvolveMono.Game.Tiles
 {
     public class Tile
     {

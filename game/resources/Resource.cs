@@ -1,6 +1,6 @@
 using Godot;
 
-namespace EvolveMono.Scripts.Resources
+namespace EvolveMono.Game.Resources
 {
     public class Resource : Sprite
     {
