@@ -9,19 +9,21 @@ namespace EvolveMono.Game
     {
 
         [Signal]
-        public delegate void Select();
+        delegate void TileHovered(Tile tile);
+        [Signal]
+        delegate void TileSelected(Tile tile);
 
         public HexTileMap TileMap;
-        public Sprite Hovered;
-        public Sprite Selected;
+        public Sprite HoveredSprite;
+        public Sprite SelectedSprite;
 
         public Vector2 hoveredMapPos;
 
         public override void _Ready()
         {
             TileMap = (HexTileMap)GetNode("HexTileMap");
-            Hovered = (Sprite)GetNode("Hovered");
-            Selected = (Sprite)GetNode("Selected");
+            HoveredSprite = (Sprite)GetNode("Hovered");
+            SelectedSprite = (Sprite)GetNode("Selected");
 
             // Inicia o TileManager
             foreach (Vector2 cell in TileMap.GetUsedCells())
@@ -39,21 +41,25 @@ namespace EvolveMono.Game
         {
             if (@event is InputEventMouseMotion eventMouseMotion)
             {
-                hoveredMapPos = TileMap.WorldToMap(GetGlobalMousePosition());
-                Hovered.Position = TileMap.MapToWorld(hoveredMapPos) + TileMap.TileSize / 2;
+                var newHoveredMapPos = TileMap.WorldToMap(GetGlobalMousePosition());
+                if (hoveredMapPos != newHoveredMapPos)
+                {
+                    hoveredMapPos = newHoveredMapPos;
+                    Tile hoveredTile = TileManager.Tiles[hoveredMapPos];
+                    if (hoveredTile != null)
+                    {
+                        HoveredSprite.Position = TileMap.MapToWorld(hoveredMapPos) + TileMap.TileSize / 2;
+                        EmitSignal(nameof(TileHovered), hoveredTile);
+                    }
+                }
             }
             if (@event.IsActionPressed("map_left_click"))
             {
-                EmitSignal(nameof(Select));
-                Selected.Position = Hovered.Position;
                 Tile selectedTile = TileManager.Tiles[hoveredMapPos];
                 if (selectedTile != null)
                 {
-                    GD.Print(hoveredMapPos + ": ");
-                    foreach (var resourceType in selectedTile.Terrain.ResourceTypes)
-                    {
-                        GD.Print("\t" + resourceType);
-                    }
+                    SelectedSprite.Position = HoveredSprite.Position;
+                    EmitSignal(nameof(TileSelected), selectedTile);
                 }
             }
         }

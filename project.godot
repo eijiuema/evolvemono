@@ -19,6 +19,14 @@ config/name="EvolveMono"
 run/main_scene="res://game/Game.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=1366
+window/size/height=768
+window/size/borderless=true
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "hexgrid" )

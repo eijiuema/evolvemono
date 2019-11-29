@@ -40,7 +40,7 @@ namespace EvolveMono.Game.Units
             {
                 var parent = GetParent() as Map;
                 var line = parent.GetNode("Line2D") as Line2D;
-                var path = parent.GetSimplePath(GlobalPosition, parent.Hovered.Position);
+                var path = parent.GetSimplePath(GlobalPosition, parent.HoveredSprite.Position);
                 line.Points = path;
                 Path = new List<Vector2>(path);
             }

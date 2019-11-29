@@ -12,7 +12,7 @@ namespace EvolveMono.Game
         private bool _mouseCaptured = false;
         public override void _Ready()
         {
-            Input.SetMouseMode(Input.MouseMode.Confined);
+            // Input.SetMouseMode(Input.MouseMode.Confined);
         }
 
         public override void _UnhandledInput(InputEvent @event)
