@@ -32,9 +32,9 @@ namespace EvolveMono.Game
             }
 
             // Adiciona a primeira unidade do jogo
-            Unit newUnit = UnitManager.CreateUnit(UnitType.Goblin);
-            newUnit.Position = TileMap.TileSize / 2;
-            AddChild(newUnit);
+            // Unit newUnit = UnitManager.CreateUnit(UnitType.Goblin);
+            // newUnit.Position = TileMap.TileSize / 2;
+            // AddChild(newUnit);
         }
 
         public override void _UnhandledInput(InputEvent @event)
