@@ -1,10 +1,97 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/unit.png" type="Texture" id=1]
 [ext_resource path="res://game/units/Unit.cs" type="Script" id=2]
+[ext_resource path="res://assets/Wood.png" type="Texture" id=3]
+[ext_resource path="res://assets/bread.png" type="Texture" id=4]
 
 [node name="Unit" type="Sprite"]
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
-Speed = 100.0
-Energy = 100
+
+[node name="UnitActions" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -46.0
+margin_top = 10.0
+margin_right = 24.0
+margin_bottom = 50.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="UnitActions"]
+margin_right = 21.0
+margin_bottom = 40.0
+text = "A"
+
+[node name="Button2" type="Button" parent="UnitActions"]
+margin_left = 25.0
+margin_right = 46.0
+margin_bottom = 40.0
+text = "B"
+
+[node name="Button3" type="Button" parent="UnitActions"]
+margin_left = 50.0
+margin_right = 70.0
+margin_bottom = 40.0
+text = "C"
+
+[node name="Resources" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.5
+margin_top = -57.0
+margin_right = 10.5
+margin_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Wood" type="HBoxContainer" parent="Resources"]
+margin_right = 43.0
+margin_bottom = 15.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Resources/Wood"]
+margin_right = 15.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 15, 15 )
+mouse_filter = 2
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Resources/Wood"]
+margin_left = 19.0
+margin_right = 43.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "(5)"
+align = 2
+
+[node name="Food" type="HBoxContainer" parent="Resources"]
+margin_top = 19.0
+margin_right = 43.0
+margin_bottom = 34.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Resources/Food"]
+margin_right = 15.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 15, 15 )
+mouse_filter = 2
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Resources/Food"]
+margin_left = 19.0
+margin_right = 43.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "(10)"
+align = 2

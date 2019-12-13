@@ -2,6 +2,32 @@
 
 [ext_resource path="res://game/gui/windows/CollapsableWindow.gd" type="Script" id=1]
 
+[sub_resource type="GDScript" id=10]
+script/source = "extends Control
+
+onready var UnitManager = $\"/root/UnitManager\"
+onready var Map = $\"/root/Game/Map\"
+onready var Camera = $\"/root/Game/Camera\"
+onready var ItemList = $ScrollableWindow/VBoxContainer/Panel/ScrollContainer/ItemList
+
+var units = []
+
+func _ready():
+	UnitManager.connect(\"UnitCreated\", self, \"_on_UnitCreated\")
+	UnitManager.connect(\"UnitDeleted\", self, \"_on_UnitDeleted\")
+
+func _on_UnitCreated(var unit):
+	units.append(unit)
+	ItemList.add_item(unit.name, unit.Texture)
+	
+func _on_UnitDeleted(var unit):
+	var idx = units.find(unit)
+	ItemList.remove_item(idx)
+	units.remove(idx)
+	
+func _on_ItemList_item_selected(index):
+	Camera.follow = units[index]"
+
 [sub_resource type="Animation" id=1]
 resource_name = "Collapse"
 length = 0.25
@@ -36,15 +62,15 @@ tracks/0/keys = {
 "values": [ 1.0, 0.0 ]
 }
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=11]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 0.215686, 0.215686, 0.215686, 1 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=13]
 bg_color = Color( 0.176471, 0.176471, 0.176471, 1 )
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=6]
 script/source = "extends Button
 
 func _on_Button_toggled(button_pressed):
@@ -58,17 +84,12 @@ bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=8]
 
-[sub_resource type="GDScript" id=9]
-script/source = "extends ItemList
-
-func _ready():
-	var Texture = ResourceLoader.load(\"res://assets/unit.png\")
-	for i in 10:
-		add_item(\"John\", Texture)"
-
 [node name="UnitList" type="Control"]
 margin_right = 262.0
 margin_bottom = 190.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = SubResource( 10 )
 
 [node name="ScrollableWindow" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -92,7 +113,7 @@ custom_constants/separation = 0
 margin_right = 262.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
-custom_styles/panel = SubResource( 6 )
+custom_styles/panel = SubResource( 11 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollableWindow/VBoxContainer/TitleBar"]
 margin_right = 262.0
@@ -119,6 +140,7 @@ text = "Unit List"
 margin_left = 222.0
 margin_right = 262.0
 margin_bottom = 30.0
+size_flags_vertical = 3
 custom_constants/margin_right = 0
 custom_constants/margin_top = 0
 custom_constants/margin_left = 0
@@ -128,8 +150,8 @@ custom_constants/margin_bottom = 0
 margin_right = 40.0
 margin_bottom = 30.0
 grow_horizontal = 0
-size_flags_horizontal = 2
-size_flags_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 0
 
 [node name="Button" type="Button" parent="ScrollableWindow/VBoxContainer/TitleBar/HBoxContainer/Right/HBoxContainer"]
@@ -138,15 +160,15 @@ margin_bottom = 30.0
 rect_min_size = Vector2( 40, 30 )
 rect_clip_content = true
 focus_mode = 0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-custom_styles/hover = SubResource( 3 )
-custom_styles/pressed = SubResource( 3 )
-custom_styles/normal = SubResource( 4 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/hover = SubResource( 12 )
+custom_styles/pressed = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
 custom_constants/hseparation = 0
 toggle_mode = true
 text = "-"
-script = SubResource( 5 )
+script = SubResource( 6 )
 
 [node name="Panel" type="PanelContainer" parent="ScrollableWindow/VBoxContainer"]
 margin_top = 30.0
@@ -170,10 +192,11 @@ focus_mode = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/bg = SubResource( 8 )
+allow_reselect = true
 auto_height = true
 fixed_icon_size = Vector2( 44, 40 )
-script = SubResource( 9 )
 [connection signal="mouse_entered" from="ScrollableWindow/VBoxContainer/TitleBar" to="ScrollableWindow" method="_on_TitleBar_mouse_entered"]
 [connection signal="mouse_exited" from="ScrollableWindow/VBoxContainer/TitleBar" to="ScrollableWindow" method="_on_TitleBar_mouse_exited"]
 [connection signal="toggled" from="ScrollableWindow/VBoxContainer/TitleBar/HBoxContainer/Right/HBoxContainer/Button" to="ScrollableWindow/VBoxContainer/TitleBar/HBoxContainer/Right/HBoxContainer/Button" method="_on_Button_toggled"]
 [connection signal="toggled" from="ScrollableWindow/VBoxContainer/TitleBar/HBoxContainer/Right/HBoxContainer/Button" to="ScrollableWindow" method="_on_Button_toggled"]
+[connection signal="item_selected" from="ScrollableWindow/VBoxContainer/Panel/ScrollContainer/ItemList" to="." method="_on_ItemList_item_selected"]

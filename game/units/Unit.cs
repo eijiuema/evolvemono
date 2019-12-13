@@ -5,7 +5,9 @@ namespace EvolveMono.Game.Units
 {
 
     public class Unit : Sprite
-    {
+    {	
+		[Signal]
+        public delegate void PathEnded();
 
         private float _speed;
         [Export]
@@ -33,18 +35,25 @@ namespace EvolveMono.Game.Units
                     SetProcess(true);
             }
         }
+		
+		private List<Resource> _resources;
+		public List<Resource> Resources
+		{
+			get => _resources;
+			set => _resources = value;
+		}
 
-        public override void _UnhandledInput(InputEvent @event)
-        {
-            if (@event.IsActionPressed("test_right_click"))
-            {
-                var parent = GetParent() as Map;
-                var line = parent.GetNode("Line2D") as Line2D;
-                var path = parent.GetSimplePath(GlobalPosition, parent.HoveredSprite.Position);
-                line.Points = path;
-                Path = new List<Vector2>(path);
-            }
-        }
+//        public override void _UnhandledInput(InputEvent @event)
+//        {
+//            if (@event.IsActionPressed("test_right_click"))
+//            {
+//                var parent = GetParent() as Map;
+//                var line = parent.GetNode("Line2D") as Line2D;
+//                var path = parent.GetSimplePath(GlobalPosition, parent.HoveredSprite.Position);
+//                line.Points = path;
+//                Path = new List<Vector2>(path);
+//            }
+//        }
 
         public override void _Ready()
         {
@@ -72,6 +81,7 @@ namespace EvolveMono.Game.Units
                 {
                     Position = _path[0];
                     SetProcess(false);
+                    EmitSignal("PathEnded");
                     break;
                 }
                 distance -= distanceToNext;
@@ -80,22 +90,6 @@ namespace EvolveMono.Game.Units
             }
         }
 
-    }
-
-    public sealed class UnitType
-    {
-        public static readonly UnitType Goblin = new UnitType(0, ResourceLoader.Load("res://game/units/Goblin.tscn") as PackedScene);
-        public static readonly UnitType Human = new UnitType(1, ResourceLoader.Load("res://game/units/Human.tscn") as PackedScene);
-        public static readonly UnitType Giant = new UnitType(2, ResourceLoader.Load("res://game/units/Giant.tscn") as PackedScene);
-
-        public int index;
-        public PackedScene packedScene;
-
-        private UnitType(int index, PackedScene packedScene)
-        {
-            this.index = index;
-            this.packedScene = packedScene;
-        }
     }
 
 }
